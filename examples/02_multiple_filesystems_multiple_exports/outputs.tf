@@ -17,3 +17,19 @@ output "file_system_ids" {
 output "exports" {
   value = module.filestorage.exports
 }
+
+output "app_client_instance_id" {
+  value = module.app_client.instance_id
+}
+
+output "app_client_private_ip" {
+  value = module.app_client.instance_private_ip
+}
+
+output "ops_client_instance_id" {
+  value = module.ops_client.instance_id
+}
+
+output "ops_client_private_ip" {
+  value = module.ops_client.instance_private_ip
+}

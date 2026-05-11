@@ -9,14 +9,18 @@ The goal is to show how the module behaves when File Storage becomes a shared se
 
 ## Architecture Overview
 
+<img src="02_multiple_filesystems_multiple_exports_architecture.png" width="900"/>
+
 This deployment creates:
 
 - one dedicated **VCN**
 - one **private subnet** for the mount target
-- two additional client subnets used to model separate workload groups
+- two additional client subnets with dedicated consumer instances
 - one OCI **File Storage mount target**
 - two OCI **file systems**
 - two OCI **exports** with different paths and export rules
+- one **app client** instance mounting `/shared`
+- one **ops client** instance mounting `/apps`
 
 This is a good reference pattern when you want a single mount target but need more than one logical NFS share and clearer segmentation between consumers.
 
@@ -46,6 +50,35 @@ After a successful deployment, Terraform will output:
 - the file system IDs
 - each export in `ip:/path` format
 - the subnet IDs used by the example
+- the private IPs of the app and ops consumer instances
+
+---
+
+## OCI Console And Runtime Verification
+
+### Mount Target
+
+<img src="02_multiple_filesystems_multiple_exports_mount_target.png" width="900"/>
+
+This view confirms that the shared mount target is deployed in the dedicated File Storage subnet and is ready to publish multiple exports.
+
+### File Systems
+
+<img src="02_multiple_filesystems_multiple_exports_file_systems.png" width="900"/>
+
+This view confirms that the example created two separate OCI File Storage file systems: one for the shared export and one for the apps export.
+
+### Export `/shared`
+
+<img src="02_multiple_filesystems_multiple_exports_export1.png" width="900"/>
+
+This view confirms that the `/shared` export exists and is scoped for the client subnet modeled by the app consumer instance.
+
+### Export `/apps`
+
+<img src="02_multiple_filesystems_multiple_exports_export2.png" width="900"/>
+
+This view confirms that the `/apps` export exists and is scoped for the client subnet modeled by the ops consumer instance.
 
 ---
 
@@ -54,7 +87,7 @@ After a successful deployment, Terraform will output:
 - how to create multiple file systems with one module invocation
 - how to publish multiple exports from a shared mount target
 - how to scope export access to different client subnets
-- how to keep the storage layer separate from compute while still modeling real consumers
+- how to attach real compute consumers to different exports with `terraform-oci-fk-compute`
 
 ---
 
