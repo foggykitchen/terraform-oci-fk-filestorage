@@ -5,7 +5,7 @@ module "compute" {
   name             = "fk-fss-shared-node-${count.index + 1}"
   tenancy_ocid     = var.tenancy_ocid
   compartment_ocid = var.compartment_ocid
-  subnet_id        = module.vcn.subnet_ids["private_app"]
+  subnet_id        = module.vcn.subnet_ids["fk_fss_lb_shared_app_subnet"]
 
   deployment_mode          = "instance"
   shape                    = "VM.Standard.E4.Flex"

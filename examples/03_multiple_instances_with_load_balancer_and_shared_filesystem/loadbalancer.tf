@@ -3,7 +3,7 @@ module "loadbalancer" {
 
   name             = "fk-fss-shared-lb"
   compartment_ocid = var.compartment_ocid
-  subnet_ids       = [module.vcn.subnet_ids["public_lb"]]
+  subnet_ids       = [module.vcn.subnet_ids["fk_fss_lb_shared_lb_subnet"]]
 
   health_checker = {
     protocol = "HTTP"

@@ -102,14 +102,16 @@ module "vcn" {
   }
 
   subnets = {
-    public_lb = {
+    fk_fss_lb_shared_lb_subnet = {
+      display_name               = "fk-fss-lb-shared-lb-subnet"
       cidr_block                 = "10.90.10.0/24"
       dns_label                  = "pub03"
       route_table_key            = "public"
       security_list_keys         = ["lb_public"]
       prohibit_public_ip_on_vnic = false
     }
-    private_app = {
+    fk_fss_lb_shared_app_subnet = {
+      display_name               = "fk-fss-lb-shared-app-subnet"
       cidr_block                 = "10.90.20.0/24"
       dns_label                  = "app03"
       route_table_key            = "private"
@@ -117,7 +119,8 @@ module "vcn" {
       prohibit_internet_ingress  = true
       prohibit_public_ip_on_vnic = true
     }
-    private_filestorage = {
+    fk_fss_lb_shared_filestorage_subnet = {
+      display_name               = "fk-fss-lb-shared-filestorage-subnet"
       cidr_block                 = "10.90.30.0/24"
       dns_label                  = "fss03"
       route_table_key            = "private"

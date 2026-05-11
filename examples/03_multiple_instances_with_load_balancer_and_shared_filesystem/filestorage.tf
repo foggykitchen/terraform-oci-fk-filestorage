@@ -4,7 +4,7 @@ module "filestorage" {
   compartment_ocid    = var.compartment_ocid
   availability_domain = var.availability_domain
   name                = "fk-fss-lb-shared"
-  subnet_id           = module.vcn.subnet_ids["private_filestorage"]
+  subnet_id           = module.vcn.subnet_ids["fk_fss_lb_shared_filestorage_subnet"]
 
   mount_target = {
     hostname_label = "fkfsslbshared"

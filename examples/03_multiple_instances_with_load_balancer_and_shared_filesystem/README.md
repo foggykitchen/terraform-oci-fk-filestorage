@@ -9,6 +9,8 @@ It is intentionally modeled after the multiple-instance load balancer pattern, b
 
 ## Architecture Overview
 
+<img src="03_multiple_instances_with_load_balancer_and_shared_filesystem_architecture.png" width="900"/>
+
 This deployment creates:
 
 - one dedicated **VCN**
@@ -62,6 +64,50 @@ After a successful deployment, Terraform will output:
 - the backend instance private IPs
 - the File Storage mount target private IP
 - the shared export target in `ip:/path` format
+
+---
+
+## OCI Console And Runtime Verification
+
+### Load Balancer
+
+<img src="03_multiple_instances_with_load_balancer_and_shared_filesystem_load_balancer.png" width="900"/>
+
+This view confirms that the public load balancer is deployed and fronting the shared-filesystem application tier.
+
+### Backend Health
+
+<img src="03_multiple_instances_with_load_balancer_and_shared_filesystem_backends_healthy.png" width="900"/>
+
+This view confirms that the backend set sees the compute nodes as healthy on port `80`.
+
+### Compute Instances
+
+<img src="03_multiple_instances_with_load_balancer_and_shared_filesystem_instances.png" width="900"/>
+
+This view confirms that multiple backend instances are running in the application subnet and are available as load balancer targets.
+
+### Mount Target
+
+<img src="03_multiple_instances_with_load_balancer_and_shared_filesystem_mount_target.png" width="900"/>
+
+This view confirms that the File Storage mount target is deployed in the dedicated filestorage subnet and exposes the expected hostname and private IP.
+
+### Shared Export
+
+<img src="03_multiple_instances_with_load_balancer_and_shared_filesystem_export.png" width="900"/>
+
+This view confirms that the `/shared` export exists and is attached to the shared file system used by all backend nodes.
+
+### HTTP Access Via Load Balancer
+
+<img src="03_multiple_instances_with_load_balancer_and_shared_filesystem_check_http_via_lb.png" width="900"/>
+
+This runtime verification confirms that:
+
+- the public load balancer is reachable
+- traffic is reaching one of the backend nodes
+- the page shows the shared export target mounted from OCI File Storage
 
 ---
 
