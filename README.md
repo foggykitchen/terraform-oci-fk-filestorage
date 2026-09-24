@@ -2,7 +2,7 @@
 
 This repository contains a reusable **Terraform/OpenTofu module** and progressive examples for deploying **Oracle Cloud Infrastructure (OCI) File Storage** resources as a shared storage layer for compute workloads.
 
-It is part of the **[FoggyKitchen.com training ecosystem](https://foggykitchen.com/courses-2/)** and is designed to work cleanly with reusable infrastructure modules such as **`terraform-oci-fk-vcn`**, **`terraform-oci-fk-compute`**, and **`terraform-oci-fk-loadbalancer`**.
+It is part of the **[FoggyKitchen.com training ecosystem](https://foggykitchen.com/)** and is designed to work cleanly with reusable infrastructure modules such as **`terraform-oci-fk-vcn`**, **`terraform-oci-fk-compute`**, and **`terraform-oci-fk-loadbalancer`**.
 
 Support expectations are documented in [SUPPORT.md](SUPPORT.md).
 
