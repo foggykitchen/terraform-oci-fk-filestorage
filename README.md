@@ -8,6 +8,24 @@ Support expectations are documented in [SUPPORT.md](SUPPORT.md).
 
 ---
 
+## OCI provider compatibility
+
+Release v0.2.0 requires `oracle/oci >= 9.12.1, < 10.0.0`, matching the BaseDB module. This drops provider 6.x support. Run `tofu init -upgrade` and review a plan before applying to existing infrastructure. Use the previous release (v0.1.0) if your stack still requires OCI 6.x.
+
+Examples use the local module checkout. Example 03 pins the OCI 9-compatible Load Balancer v2.0.0 release. Configuration validation does not establish runtime behavior or a replacement-free upgrade.
+
+### Plan verification — 2026-11-12
+
+Verified with OpenTofu 1.11.6 and OCI provider 9.13.0 in isolated directories without existing state. Root module validation and all example plans passed using real OCI data-source reads and existing local authentication inputs. No `apply` was run. These are fresh-deployment plans, not state-upgrade or runtime tests.
+
+| Example | Add | Change | Destroy |
+| --- | ---: | ---: | ---: |
+| `01_single_filesystem_single_export` | 6 | 0 | 0 |
+| `02_multiple_filesystems_multiple_exports` | 15 | 0 | 0 |
+| `03_multiple_instances_with_load_balancer_and_shared_filesystem` | 22 | 0 | 0 |
+
+Example 03 was reinitialized, validated and planned again against the published Load Balancer `v2.0.0` tag. The plan passed with 22 resources to add, zero changes and zero destroys, without a local dependency override.
+
 ## Purpose
 
 The goal of this module is to provide a **clean, composable, and educational reference implementation** for OCI shared storage:
@@ -68,7 +86,7 @@ All examples are runnable and demonstrate **incremental File Storage patterns**,
 
 ```hcl
 module "filestorage" {
-  source = "git::https://github.com/foggykitchen/terraform-oci-fk-filestorage.git?ref=v0.1.0"
+  source = "git::https://github.com/foggykitchen/terraform-oci-fk-filestorage.git?ref=v0.2.0"
 
   compartment_ocid    = var.compartment_ocid
   availability_domain = var.availability_domain
@@ -100,7 +118,7 @@ module "filestorage" {
 
 ```hcl
 module "filestorage" {
-  source = "git::https://github.com/foggykitchen/terraform-oci-fk-filestorage.git?ref=v0.1.0"
+  source = "git::https://github.com/foggykitchen/terraform-oci-fk-filestorage.git?ref=v0.2.0"
 
   compartment_ocid    = var.compartment_ocid
   availability_domain = var.availability_domain
